@@ -1,6 +1,6 @@
-namespace Dotnet_project_template_test
+namespace CashRegisterTest
 {
-    using Dotnet_project_template;
+    using CashRegister;
     using Xunit;
 
     public class UnitTest1
