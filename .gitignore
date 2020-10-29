@@ -7,3 +7,5 @@
 /CashRegister/obj
 /CashRegisterTest/bin
 /CashRegisterTest/obj
+.idea
+.vscode
