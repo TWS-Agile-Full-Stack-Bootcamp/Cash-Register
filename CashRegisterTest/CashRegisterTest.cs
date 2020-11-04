@@ -13,12 +13,20 @@ namespace CashRegisterTest
 			//given
 			var printer = new SpyPrinter();
 			var cashRegister = new CashRegister(printer);
-			var purchase = new Purchase();
+			var purchase = new StubPurchase();
 			//when
 			cashRegister.Process(purchase);
 			//then
 			Assert.True(printer.HasPrinted);
 			Assert.Equal(purchase.AsString(), printer.ContentPrinted);
+		}
+	}
+
+	internal class StubPurchase : Purchase
+	{
+		public override string AsString()
+		{
+			return "content";
 		}
 	}
 
