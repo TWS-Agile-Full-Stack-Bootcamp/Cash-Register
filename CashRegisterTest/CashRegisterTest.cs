@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Moq;
 
 namespace CashRegisterTest
 {
@@ -11,14 +12,13 @@ namespace CashRegisterTest
 		public void Should_process_execute_printing()
 		{
 			//given
-			var printer = new SpyPrinter();
-			var cashRegister = new CashRegister(printer);
+			var printer = new Mock<Printer>();
+			var cashRegister = new CashRegister(printer.Object);
 			var purchase = new StubPurchase();
 			//when
 			cashRegister.Process(purchase);
 			//then
-			Assert.True(printer.HasPrinted);
-			Assert.Equal(purchase.AsString(), printer.ContentPrinted);
+			printer.Verify(_ => _.Print(purchase.AsString()));
 		}
 
 		[Fact]
@@ -50,19 +50,6 @@ namespace CashRegisterTest
 		public override string AsString()
 		{
 			return "content";
-		}
-	}
-
-	internal class SpyPrinter : Printer
-	{
-		public bool HasPrinted { get; private set; }
-		public string ContentPrinted { get; private set; }
-
-		public override void Print(string content)
-		{
-			base.Print(content);
-			HasPrinted = true;
-			ContentPrinted = content;
 		}
 	}
 }
