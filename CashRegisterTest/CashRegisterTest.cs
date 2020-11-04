@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Moq;
+using static Moq.It;
 
 namespace CashRegisterTest
 {
@@ -26,8 +27,10 @@ namespace CashRegisterTest
 		public void Should_throw_exception_when_printer_is_out_of_paper()
 		{
 			//given
-			var printer = new StubPrinter();
-			var cashRegister = new CashRegister(printer);
+			var printer = new Mock<Printer>();
+			printer.Setup(_ => _.Print(IsAny<string>()))
+				.Throws<PrinterOutOfPaperException>();
+			var cashRegister = new CashRegister(printer.Object);
 			var purchase = new Purchase();
 			//when
 			//then
@@ -35,14 +38,6 @@ namespace CashRegisterTest
 			{
 				cashRegister.Process(purchase);
 			});
-		}
-	}
-
-	internal class StubPrinter : Printer
-	{
-		public override void Print(string content)
-		{
-			throw new PrinterOutOfPaperException();
 		}
 	}
 }
