@@ -22,5 +22,22 @@ namespace CashRegisterTest
             //verify that cashRegister.process will trigger print
             mock.Verify(mock => mock.Print(It.IsAny<string>()), Times.Once());
 		}
+
+		[Fact]
+		public void Should_Process_Execute_Printing_Using_Fake_Printer()
+		{
+            //given
+            var mock = new Mock<FakePrinter>();
+            mock.Setup(printer => printer.Print(It.IsAny<string>()));
+
+            var cashRegister = new CashRegister(mock.Object);
+            Purchase purchase = new Purchase();
+            //when
+            cashRegister.Process(purchase);
+
+            //then
+            //verify that cashRegister.process will trigger print
+            mock.Verify(mock => mock.Print(It.IsAny<string>()), Times.Once());
+		}
 	}
 }
