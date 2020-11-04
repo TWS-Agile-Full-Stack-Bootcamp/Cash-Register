@@ -6,7 +6,7 @@ namespace CashRegisterTest
 	public class CashRegisterTest
 	{
 		[Fact]
-		public void Should_Process_Execute_Printing()
+		public void Should_process_execute_printing()
 		{
 			//given
 			var cashRegister = new CashRegister();
