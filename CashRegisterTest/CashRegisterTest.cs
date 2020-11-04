@@ -9,7 +9,8 @@ namespace CashRegisterTest
 		public void Should_Process_Execute_Printing()
 		{
 			//given
-			var cashRegister = new CashRegister();
+			var printer = new Printer();
+			var cashRegister = new CashRegister(printer);
 			var purchase = new Purchase();
 			//when
 			cashRegister.Process(purchase);
