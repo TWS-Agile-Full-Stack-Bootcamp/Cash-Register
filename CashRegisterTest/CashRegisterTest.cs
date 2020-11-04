@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace CashRegisterTest
 {
 	using CashRegister;
@@ -16,16 +18,20 @@ namespace CashRegisterTest
 			cashRegister.Process(purchase);
 			//then
 			Assert.True(printer.HasPrinted);
+			Assert.Equal(purchase.AsString(), printer.ContentPrinted);
 		}
 	}
 
 	internal class SpyPrinter : Printer
 	{
 		public bool HasPrinted { get; private set; }
+		public string ContentPrinted { get; private set; }
+
 		public override void Print(string content)
 		{
 			base.Print(content);
 			HasPrinted = true;
+			ContentPrinted = content;
 		}
 	}
 }
