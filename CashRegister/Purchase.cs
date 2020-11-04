@@ -18,7 +18,7 @@ namespace CashRegister
 
 		private string Timestamp()
 		{
-			return DateTime.Now.ToString();
+			return DateTime.Now.ToString("fff");
 		}
 	}
 }
