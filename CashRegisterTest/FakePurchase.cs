@@ -9,9 +9,9 @@ namespace CashRegisterTest
         {
         }
 
-        public new string AsString()
+        public override string AsString()
         {
-            return "fake purchase: " + base.AsString();
+            return string.Empty;
         }
     }
 }

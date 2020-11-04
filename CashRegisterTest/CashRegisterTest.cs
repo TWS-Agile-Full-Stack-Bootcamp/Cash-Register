@@ -1,6 +1,7 @@
 namespace CashRegisterTest
 {
-	using CashRegister;
+    using System;
+    using CashRegister;
 	using Moq;
 	using Xunit;
 
@@ -55,6 +56,22 @@ namespace CashRegisterTest
             //then
             //verify that cashRegister.process will trigger print
             mock.Verify(fakePrinter => fakePrinter.Print(It.IsAny<string>()), Times.Once());
+        }
+
+		[Fact]
+		public void Should_Process_Throw_Exception_When_Purchase_AsString_Is_Empty()
+        {
+            //given
+            Printer printer = new Printer();
+
+            var cashRegister = new CashRegister(printer);
+            FakePurchase purchase = new FakePurchase();
+            //when
+            Action action = () => cashRegister.Process(purchase);
+
+            //then
+            //verify that cashRegister.process will trigger print
+            Assert.Throws<HardwareException>(action);
         }
     }
 }
