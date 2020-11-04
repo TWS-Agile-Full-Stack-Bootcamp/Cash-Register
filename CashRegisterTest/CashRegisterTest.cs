@@ -1,3 +1,6 @@
+using System;
+using Moq;
+
 namespace CashRegisterTest
 {
 	using CashRegister;
@@ -9,13 +12,15 @@ namespace CashRegisterTest
 		public void Should_Process_Execute_Printing()
 		{
 			//given
-			var printer = new Printer();
-			var cashRegister = new CashRegister(printer);
+			var mockPrinter = new Mock<Printer>();
+			mockPrinter.Setup(p => p.Print(It.IsAny<string>()));
+			var cashRegister = new CashRegister(mockPrinter.Object);
 			var purchase = new Purchase();
 			//when
 			cashRegister.Process(purchase);
 			//then
 			//verify that cashRegister.process will trigger print
+			mockPrinter.Verify(printer => printer.Print(It.IsAny<string>()), Times.Once);
 		}
 	}
 }
